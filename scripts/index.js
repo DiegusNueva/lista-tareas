@@ -14,6 +14,10 @@ function addTask() {
 
     const taskText = taskInput.value.trim()
 
+    if(taskText === ""){
+        alert("Por favor, ingrese una tarea válida")
+    }
+
     const li = document.createElement("li")
 
     const checkbox = document.createElement("input")
@@ -23,11 +27,40 @@ function addTask() {
     checkbox.className = "checkbox"
 
     const taskLabel = document.createElement("label")
-    taskLabel.textContent = taskTest
+    taskLabel.textContent = taskText
 
+    checkbox.addEventListener("change", () => {
+        taskLabel.classList.toggle("completed", checkbox.checked)
+    })
+
+    li.appendChild(checkbox, taskLabel)
+
+    li.appendChild(checkbox)
+    li.appendChild(taskLabel)
+
+    taskList.appendChild(li)
+
+    clearTaskInput()
+    
 
 }
 
-function clearAllTasks() {
+function clearTaskInput(){
+    taskInput.value = ""
+    taskInput.focus()
+}
 
+function clearAllTasks() {
+    // Obtén todas las tareas
+    const tasks = document.querySelectorAll("li");
+
+    // Recorre todas las tareas y elimínalas
+    // for (let i = 0; i < tasks.length; i++) {
+    //     taskList.removeChild(tasks[i]);
+    // }
+
+    // Con un forEach, sería:
+    tasks.forEach(task => {
+        taskList.removeChild(task);
+    });
 }
